@@ -2,7 +2,13 @@ import pandas as pd
 import traceback
 import json
 
+# TODO BUG : if an activity stars at 11 pm on day1 and ends at 1 am next day (day2)
+# the activity is counted as if it ended on 1 am of day1.
+# eg check 260-06-2018 , Sleep activity.
 
+# TODO : add feature to change the start time of the day manually
+# eg i would want to set my day started at 6 am and ending next day 5:59 am
+# if i want to see my sleep data.
 class smtData:
     def __init__(self, init_dataframe):
         """
@@ -24,7 +30,7 @@ class smtData:
         self._rename_columns()
         self._ms_to_datetime()
 
-        self.activities = list(self._df[['activity', 'category']]
+        self.activities = list(self._df[['category','activity']]
                                .drop_duplicates()
                                .itertuples(index=False, name=None))
 
